@@ -1,4 +1,5 @@
 import axios from 'axios';
+import chrome from 'chrome-aws-lambda';
 import { format } from 'date-fns';
 import { mdToPdf } from 'md-to-pdf';
 import { render } from 'mustache';
@@ -61,7 +62,19 @@ export async function generateLicense(
 		stripe_buy_date: format(metadata.stripe_buy_date, 'MMMM dd yyyy'),
 	});
 
-	const { content: data } = await mdToPdf({ content: filledMd });
+	const { content: data } = await mdToPdf(
+		{ content: filledMd },
+		{
+			launch_options:
+				process.env.NODE_ENV === 'production'
+					? {
+							args: chrome.args,
+							executablePath: await chrome.executablePath,
+							headless: chrome.headless,
+					  }
+					: {},
+		}
+	);
 
 	return {
 		filename: `license_${metadata.stripe_buyer_name
