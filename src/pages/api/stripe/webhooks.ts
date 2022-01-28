@@ -17,11 +17,11 @@ import {
 } from '../../../util/useDatabase';
 
 // Stripe requires the raw body to construct the event.
-export const config = {
-	api: {
-		bodyParser: false,
-	},
-};
+// export const config = {
+// 	api: {
+// 		bodyParser: false,
+// 	},
+// };
 
 async function buffer(readable: NextApiRequest) {
 	const chunks = [];
@@ -48,13 +48,14 @@ const webhookHandler = async (
 	res: NextApiResponse
 ): Promise<void> => {
 	if (req.method === 'POST') {
-		const buf = await buffer(req);
-		const sig = req.headers['stripe-signature'] as string;
-		const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET_LIVE as string;
+		// const buf = await buffer(req);
+		// const sig = req.headers['stripe-signature'] as string;
+		// const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET_LIVE as string;
 		let event;
 
 		try {
-			event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+			// event = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+			event = req.body as Stripe.Event;
 		} catch (err) {
 			sentryException(err as Error);
 			return res
@@ -120,6 +121,7 @@ const webhookHandler = async (
 					}
 
 					case 'invoice.payment_succeeded': {
+						console.log(event);
 						const invoice = event.data.object as Stripe.Invoice;
 
 						if (!invoice.customer_email) {
@@ -129,7 +131,7 @@ const webhookHandler = async (
 							return;
 						}
 
-						// We only send an email to the $399/mo plan subscribers.
+						// We only send an email to the 399/mo plan subscribers.
 						// For all other invoices, just skip.
 						if (invoice.total !== 39900) {
 							res.status(200).json({
@@ -137,6 +139,8 @@ const webhookHandler = async (
 							});
 							return;
 						}
+
+						console.log(invoice);
 
 						const customerName =
 							invoice.customer_name || 'Reacher customer';
