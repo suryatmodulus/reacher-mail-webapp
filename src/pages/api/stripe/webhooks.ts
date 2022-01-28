@@ -121,7 +121,6 @@ const webhookHandler = async (
 					}
 
 					case 'invoice.payment_succeeded': {
-						console.log(event);
 						const invoice = event.data.object as Stripe.Invoice;
 
 						if (!invoice.customer_email) {

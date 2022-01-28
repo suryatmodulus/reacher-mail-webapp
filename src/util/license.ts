@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { format } from 'date-fns';
-import mdPdf from 'markdown-pdf';
+import { mdToPdf } from 'md-to-pdf';
 import { render } from 'mustache';
-import { join, resolve as pathResolve } from 'path';
 
 const LICENSE_TEMPLATE =
 	'https://raw.githubusercontent.com/reacherhq/policies/master/license/commercial.md';
@@ -62,33 +61,15 @@ export async function generateLicense(
 		stripe_buy_date: format(metadata.stripe_buy_date, 'MMMM dd yyyy'),
 	});
 
-	return new Promise<{ filename: string; data: Buffer }>(
-		(resolve, reject) => {
-			// Hack to fix running phantomjs on Vercel:
-			// https://github.com/marcbachmann/node-html-pdf/issues/586#issuecomment-673725644
-			process.env.LD_LIBRARY_PATH = join(process.cwd(), 'bins');
+	const { content: data } = await mdToPdf({ content: filledMd });
 
-			mdPdf({
-				phantomPath: pathResolve(
-					process.cwd(),
-					'node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs'
-				),
-			})
-				.from.string(filledMd)
-				.to.buffer((err: Error, data: Buffer) => {
-					if (err) {
-						return reject(err);
-					}
-
-					const filename = `license_${metadata.stripe_buyer_name
-						.replace(/ /g, '-')
-						.replace(/\./g, '')}_${format(
-						metadata.stripe_buy_date,
-						'yyyyMMdd'
-					)}-${format(metadata.license_end_date, 'yyyyMMdd')}.pdf`;
-
-					return resolve({ filename, data });
-				});
-		}
-	);
+	return {
+		filename: `license_${metadata.stripe_buyer_name
+			.replace(/ /g, '-')
+			.replace(/\./g, '')}_${format(
+			metadata.stripe_buy_date,
+			'yyyyMMdd'
+		)}-${format(metadata.license_end_date, 'yyyyMMdd')}.pdf`,
+		data,
+	};
 }
