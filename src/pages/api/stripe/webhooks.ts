@@ -140,12 +140,7 @@ const webhookHandler = async (
 							return;
 						}
 
-						const customerName =
-							invoice.customer_name ||
-							((await stripe.customers.retrieve(
-								invoice.customer as string
-							)) as Stripe.Customer).name ||
-							'Reacher customer';
+						const customerName = await getCustomerName(invoice);
 
 						// Generate PDF with the given info.
 						const stripeBuyDate = new Date(invoice.created * 1000);
@@ -216,5 +211,23 @@ Amaury`,
 		res.status(405).json({ error: 'Method Not Allowed' });
 	}
 };
+
+// Stripe invoice object doesn't always include the customer name. If it's
+// not present, we make an additional API call.
+async function getCustomerName(invoice: Stripe.Invoice): Promise<string> {
+	if (invoice.customer_name) {
+		return invoice.customer_name;
+	}
+
+	try {
+		const c = (await stripe.customers.retrieve(
+			invoice.customer as string
+		)) as Stripe.Customer;
+
+		return c.name || 'Reacher customer';
+	} catch (e) {
+		return 'Reacher customer';
+	}
+}
 
 export default withSentry(webhookHandler);
