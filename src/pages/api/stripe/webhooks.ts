@@ -1,10 +1,9 @@
-import { withSentry } from '@sentry/nextjs';
 import { addMonths, format } from 'date-fns';
 import mailgun from 'mailgun-js';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Attachment from 'mailgun-js/lib/attachment';
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 
 import { generateLicense } from '../../../util/license';
@@ -229,4 +228,4 @@ async function getCustomerName(invoice: Stripe.Invoice): Promise<string> {
 	}
 }
 
-export default withSentry(webhookHandler);
+export default webhookHandler;
