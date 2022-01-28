@@ -140,8 +140,13 @@ const webhookHandler = async (
 							return;
 						}
 
-						console.log(invoice);
+						if (!invoice.customer_name) {
+							const customer = await stripe.customers.retrieve(
+								invoice.customer as string
+							);
 
+							console.log(customer);
+						}
 						const customerName =
 							invoice.customer_name || 'Reacher customer';
 

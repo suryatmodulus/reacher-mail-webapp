@@ -63,7 +63,14 @@ export async function generateLicense(
 
 	return new Promise<{ filename: string; data: Buffer }>(
 		(resolve, reject) => {
-			mdPdf()
+			process.env.LD_LIBRARY_PATH = path.join(process.cwd(), 'bins');
+
+			mdPdf({
+				phantomPath: path.resolve(
+					process.cwd(),
+					'node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs'
+				),
+			})
 				.from.string(filledMd)
 				.to.buffer((err: Error, data: Buffer) => {
 					if (err) {
