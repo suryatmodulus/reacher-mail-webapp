@@ -1331,12 +1331,12 @@ chownr@^1.1.1:
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.4.tgz#6fc9d7b42d32a583596337666e7d08084da2cc6b"
   integrity sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==
 
-chrome-aws-lambda@^10.1.0:
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/chrome-aws-lambda/-/chrome-aws-lambda-10.1.0.tgz#ac43b4cdfc1fbb2275c62effada560858099501e"
-  integrity sha512-NZQVf+J4kqG4sVhRm3WNmOfzY0OtTSm+S8rg77pwePa9RCYHzhnzRs8YvNI6L9tALIW6RpmefWiPURt3vURXcw==
+chrome-aws-lambda@5.4.0:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/chrome-aws-lambda/-/chrome-aws-lambda-5.4.0.tgz#3627a23dda3e034a86c19ac7eeeee1f742c684aa"
+  integrity sha512-edlk3okaPwVJ7lLhmi0p1Xs0lx3ekloW5Lqq+q+V0jS/4dyXYLeA23SKdB+A6+hBf/n88yfR8ssb78tBD/C9CA==
   dependencies:
-    lambdafs "^2.0.3"
+    lambdafs "^2.0.0"
 
 ci-info@^2.0.0:
   version "2.0.0"
@@ -3238,7 +3238,7 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-lambdafs@^2.0.3:
+lambdafs@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/lambdafs/-/lambdafs-2.1.1.tgz#4bf8d3037b6c61bbb4a22ab05c73ee47964c25ed"
   integrity sha512-x5k8JcoJWkWLvCVBzrl4pzvkEHSgSBqFjg3Dpsc4AcTMq7oUMym4cL/gRTZ6VM4mUMY+M0dIbQ+V1c1tsqqanQ==
@@ -4989,11 +4989,6 @@ symbol-observable@^1.1.0:
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
   integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
-system@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/system/-/system-2.0.1.tgz#d26a85135ee7f36e054e7f0eec4467f3b1dd9742"
-  integrity sha512-BwSUSa8LMHZouGadZ34ck3TsrH5s3oMmTKPK+xHdbBnTCZOZMJ38fHGKLAHkBl0PXru1Z4BsymQU4qqvTxWzdQ==
-
 table@^6.0.4:
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/table/-/table-6.0.7.tgz#e45897ffbcc1bcf9e8a87bf420f2c9e5a7a52a34"
@@ -5384,11 +5379,6 @@ webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
-
-webpage@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/webpage/-/webpage-0.3.0.tgz#15c8c99e822b499e9981ae6876539b423448b8e7"
-  integrity sha1-FcjJnoIrSZ6Zga5odlObQjRIuOc=
 
 websocket@^1.0.34:
   version "1.0.34"
