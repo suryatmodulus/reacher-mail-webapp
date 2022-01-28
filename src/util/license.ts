@@ -2,6 +2,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import mdPdf from 'markdown-pdf';
 import { render } from 'mustache';
+import { join, resolve as pathResolve } from 'path';
 
 const LICENSE_TEMPLATE =
 	'https://raw.githubusercontent.com/reacherhq/policies/master/license/commercial.md';
@@ -63,10 +64,12 @@ export async function generateLicense(
 
 	return new Promise<{ filename: string; data: Buffer }>(
 		(resolve, reject) => {
-			process.env.LD_LIBRARY_PATH = path.join(process.cwd(), 'bins');
+			// Hack to fix running phantomjs on Vercel:
+			// https://github.com/marcbachmann/node-html-pdf/issues/586#issuecomment-673725644
+			process.env.LD_LIBRARY_PATH = join(process.cwd(), 'bins');
 
 			mdPdf({
-				phantomPath: path.resolve(
+				phantomPath: pathResolve(
 					process.cwd(),
 					'node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs'
 				),

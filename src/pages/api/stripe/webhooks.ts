@@ -140,15 +140,12 @@ const webhookHandler = async (
 							return;
 						}
 
-						if (!invoice.customer_name) {
-							const customer = await stripe.customers.retrieve(
-								invoice.customer as string
-							);
-
-							console.log(customer);
-						}
 						const customerName =
-							invoice.customer_name || 'Reacher customer';
+							invoice.customer_name ||
+							((await stripe.customers.retrieve(
+								invoice.customer as string
+							)) as Stripe.Customer).name ||
+							'Reacher customer';
 
 						// Generate PDF with the given info.
 						const stripeBuyDate = new Date(invoice.created * 1000);
