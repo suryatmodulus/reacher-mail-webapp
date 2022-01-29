@@ -1,5 +1,3 @@
-import 'md-to-pdf/markdown.css';
-
 import axios from 'axios';
 import chrome from 'chrome-aws-lambda';
 import { format } from 'date-fns';
