@@ -1,6 +1,6 @@
 {
 	"functions": {
-		"api/stripe/webhook.ts": {
+		"api/stripe/webhooks": {
 			"includeFiles": "node_modules/md-to-pdf/markdown.css"
 		}
 	}
