@@ -1,4 +1,4 @@
-const moduleExports = {
+module.exports = {
 	async rewrites() {
 		return [
 			{
